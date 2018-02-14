@@ -1,0 +1,16 @@
+.box {
+  cursor: pointer;
+}
+.box > span {
+  font-size: 18px;
+}
+.box.select > span {
+  font-weight: bold;
+}
+.box .inbox {
+  display: none;
+  padding: 4px 8px 12px;
+}
+.box .inbox.show {
+  display: block;
+}
