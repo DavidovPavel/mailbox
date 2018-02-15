@@ -1,39 +1,38 @@
 <ul class="list-unstyled">
 
-    <li class="email-item row unread" *ngFor="let letter of letters">
-      <div class="people col-sm-3">
-        <ul class="mail-icons list-inline">
-          <li>
-            <input type="checkbox" class="mail-select">
-          </li>
-          <li>
-            <span class="glyphicon glyphicon-star-empty"></span>
-          </li>
-          <li>
-            <span class="glyphicon glyphicon-cutlery"></span>
-          </li>
-        </ul>
+  <li class="email-item row unread" *ngFor="let letter of letters$ | async" [routerLink]="['/mailbox', boxId, letter._id]">
+    <div class="people col-sm-3">
+      <ul class="mail-icons list-inline">
+        <li>
+          <input type="checkbox" class="mail-select">
+        </li>
+        <li>
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </li>
+        <li>
+          <span class="glyphicon glyphicon-cutlery"></span>
+        </li>
+      </ul>
 
-        <span class="people-names">
-          Nizar Khalife
-        </span>
+      <span class="people-names">
+        {{ letter.to }}
+      </span>
+    </div>
+    <!-- people -->
+
+    <div class="message col-sm-7">
+      <div class="clipper">
+        <h3>{{ letter.subject }}</h3>
+        -
+        <p>{{ letter.body.slice(0, 50) }}</p>
       </div>
-      <!-- people -->
+    </div>
+    <!-- message -->
 
-      <div class="message col-sm-7">
-        <div class="clipper">
-          <h3>About your pizza</h3>
-          -
-          <p>We can't deliver your pizza on time. We will be about 50 minutes late. Is that okay? Let us know because there
-            are a lot of hungry people in the world.</p>
-        </div>
-      </div>
-      <!-- message -->
+    <div class="date col-sm-2">
+      <date class="pull-right">{{ letter.received.toLocaleTimeString() }}</date>
+    </div>
+    <!-- date -->
+  </li>
 
-      <div class="date col-sm-2">
-        <date class="pull-right">11:27 a.m.</date>
-      </div>
-      <!-- date -->
-    </li>
-
-  </ul>
+</ul>

@@ -1,0 +1,6 @@
+<div *ngFor="let mail of mails$ | async">
+ <h2>{{ mail.subject }}</h2>
+ <hr>
+ <b>{{ mail.to }}</b>
+  <p>{{ mail.body }}</p>
+</div>

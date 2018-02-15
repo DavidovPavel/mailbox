@@ -1,8 +1,5 @@
 <div class="control-bar row">
-  <div class="menu col-sm-2">
-    Gmail
-    <span class="caret"></span>
-  </div>
+  <div class="menu col-sm-2">Gmail<span class="caret"></span></div>
   <!-- menu -->
 
   <div class="controls col-sm-10">
@@ -31,7 +28,6 @@
 <!-- control-bar -->
 
 <div class="mail row">
-
   <div class="sidebar col-sm-2">
 
     <div>
@@ -39,9 +35,9 @@
       <button (click)="addBox(boxname.value)">add</button>
     </div>
     <ul class="list-unstyled inbox-sections">
-      <li *ngFor="let box of boxes$ | async" [ngClass]="{box:true, select: box._id===currentBoxId}">
-        <span (click)="getMails(box)">{{ box.title }}</span>
-        <div [ngClass]="{inbox:true, show:box._id===currentBoxId}">
+      <li *ngFor="let box of boxes$ | async" class="box">
+        <a [routerLink]="[ '/mailbox', box._id ]" routerLinkActive="select">{{ box.title }}</a>
+        <div class="inbox">
           <button class="compose btn btn-danger">Compose</button>
           <ul class="inbox-sections list-unstyled">
             <li class="active">Inbox (100)</li>
@@ -56,11 +52,9 @@
 
   </div>
   <!-- sidebar -->
-
   <div class="inbox col-sm-10">
-   <app-mails [letters]="letters$ | async"></app-mails>
-  </div>
+   <router-outlet></router-outlet>
+  </div>  
   <!-- inbox -->
-
 </div>
 <!-- mail -->

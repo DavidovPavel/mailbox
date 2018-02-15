@@ -1,16 +1,19 @@
 .box {
   cursor: pointer;
 }
-.box > span {
+.box > a {
   font-size: 18px;
 }
-.box.select > span {
+.box > a.select {
   font-weight: bold;
 }
+
+
 .box .inbox {
   display: none;
   padding: 4px 8px 12px;
 }
-.box .inbox.show {
+
+.box > a.select ~ .inbox {
   display: block;
 }

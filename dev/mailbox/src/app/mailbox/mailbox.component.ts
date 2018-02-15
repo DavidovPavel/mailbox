@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { ApiService } from '../api.service';
-import { Mailbox, Mail } from '../models/mailbox';
+import { Mailbox } from '../models/mailbox';
+
 import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mailbox',
@@ -10,9 +14,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MailboxComponent implements OnInit {
   boxes$: Observable<Mailbox[]>;
-  letters$: Observable<Mail[]>;
-  currentBoxId;
-  constructor(private api: ApiService) {}
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService
+  ) {}
 
   ngOnInit() {
     this.boxes$ = this.api.getBoxes();
@@ -24,10 +31,5 @@ export class MailboxComponent implements OnInit {
         .saveBox(title)
         .subscribe((box) => (this.boxes$ = this.api.getBoxes()));
     }
-  }
-
-  getMails(box: Mailbox) {
-    this.currentBoxId = box._id;
-    this.letters$ = this.api.getMails(box._id);
   }
 }
