@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
-const API_URL = 'http://test-api.javascript.ru/v1/pdavydov/';
+const API_URL = 'https://test-api.javascript.ru/v1/pdavydov/';
 
 @Injectable()
 export class ApiService {
