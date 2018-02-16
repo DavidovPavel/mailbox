@@ -20,7 +20,6 @@ export class MailsComponent implements OnInit {
   ngOnInit() {
     this.letters$ = this.route.paramMap.switchMap((params) => {
       this.boxId = params.get('boxid');
-      console.log(params);
       return this.api.getMails(this.boxId);
     });
 

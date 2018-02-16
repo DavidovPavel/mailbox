@@ -36,7 +36,7 @@
     </div>
     <ul class="list-unstyled inbox-sections">
       <li *ngFor="let box of boxes$ | async" class="box">
-        <a [routerLink]="[ '/mailbox', box._id ]" routerLinkActive="select">{{ box.title }}</a>
+        <a [routerLink]="[ '/app', box._id ]" routerLinkActive="select">{{ box.title }}</a>
         <div class="inbox">
           <button class="compose btn btn-danger">Compose</button>
           <ul class="inbox-sections list-unstyled">

@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
 
-  <li class="email-item row unread" *ngFor="let letter of letters$ | async" [routerLink]="['/mailbox', boxId, letter._id]">
+  <li class="email-item row unread" *ngFor="let letter of letters$ | async" [routerLink]="['/app', boxId, letter._id]">
     <div class="people col-sm-3">
       <ul class="mail-icons list-inline">
         <li>

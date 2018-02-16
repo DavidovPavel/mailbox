@@ -17,11 +17,11 @@ import { AuthoriseService } from './authorise.service';
 const routes = [
   {
     path: '',
-    redirectTo: 'mailbox',
+    redirectTo: 'app',
     pathMatch: 'full'
   },
   {
-    path: 'mailbox',
+    path: 'app',
     component: MailboxComponent,
     // canActivate: [AuthGuard]
     children: [
