@@ -6,6 +6,7 @@ import { ApiService } from '../../api.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import { ChannelService, Toolbar } from '../../channel.service';
 
 @Component({
   selector: 'app-mails',
@@ -15,14 +16,19 @@ import 'rxjs/add/operator/switchMap';
 export class MailsComponent implements OnInit {
   letters$: Observable<Mail[]>;
   boxId: string;
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(
+    private channel: ChannelService,
+    private api: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+
+    this.channel.setToolbar(Toolbar.LIST);
+
     this.letters$ = this.route.paramMap.switchMap((params) => {
       this.boxId = params.get('boxid');
       return this.api.getMails(this.boxId);
     });
 
-    this.route.params.subscribe(param => console.log(param));
+    // this.route.params.subscribe(param => console.log(param));
   }
 }

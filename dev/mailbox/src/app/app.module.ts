@@ -13,6 +13,7 @@ import { MailComponent } from './mailbox/mails/mail/mail.component';
 
 import { ApiService } from './api.service';
 import { AuthoriseService } from './authorise.service';
+import { ChannelService } from './channel.service';
 
 const routes = [
   {
@@ -48,7 +49,7 @@ const routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ApiService, AuthoriseService],
+  providers: [ApiService, AuthoriseService, ChannelService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

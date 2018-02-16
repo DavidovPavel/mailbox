@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { Observable } from 'rxjs/Observable';
 import { Mail } from '../../../models/mailbox';
+import { ChannelService, Toolbar } from '../../../channel.service';
+
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mail',
@@ -11,11 +14,17 @@ import { Mail } from '../../../models/mailbox';
 })
 export class MailComponent implements OnInit {
   mails$: Observable<Mail[]>;
-  constructor(private route: ActivatedRoute, private api: ApiService) {}
+  constructor(
+    private channel: ChannelService,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   ngOnInit() {
-    this.mails$ = this.route.paramMap.switchMap((param) =>
-      this.api.getMail(param.get('id'), param.get('boxid'))
-    );
+    this.mails$ = this.route.paramMap
+      .pipe(tap((p) => this.channel.setToolbar(Toolbar.DETAILS)))
+      .switchMap((param) =>
+        this.api.getMail(param.get('id'), param.get('boxid'))
+      );
   }
 }

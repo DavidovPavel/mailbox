@@ -6,9 +6,12 @@
 
     <div class="search-bar col-sm-6">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for...">
+        <input type="text" class="form-control" placeholder="Search for..." 
+          #inputSearch  
+          (keydown.enter)="search(inputSearch.value)">
         <span class="input-group-btn">
-          <button class="btn btn-main">
+          <button class="btn btn-main" 
+            (click)="search(inputSearch.value)">
             <span class="glyphicon glyphicon-search"></span>
           </button>
         </span>

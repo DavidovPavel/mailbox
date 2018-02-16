@@ -1,22 +1,20 @@
 <div class="control-bar row">
-  <div class="menu col-sm-2">Gmail<span class="caret"></span></div>
+  <div class="menu col-sm-2">Gmail
+    <span class="caret"></span>
+  </div>
   <!-- menu -->
 
   <div class="controls col-sm-10">
     <ul class="control-list list-inline">
-      <li>
-        <button class="btn btn-control">
+      <li *ngFor="let btn of toolbar$ | async">
+        <button *ngIf="btn.templ===0" class="text-btn btn btn-control" (click)="onToolbar(btn.name)" title="{{ btn.title }}">
+          <span class="glyphicon glyphicon-{{ btn.icon }}"></span>
+        </button>
+        <button *ngIf="btn.templ===1" class="btn btn-control">
           <input type="checkbox" class="mail-select">
           <span class="caret"></span>
         </button>
-      </li>
-      <li>
-        <button class="btn btn-control">
-          <span class="glyphicon glyphicon-repeat"></span>
-        </button>
-      </li>
-      <li>
-        <button class="text-btn btn btn-control">
+        <button *ngIf="btn.templ===2" class="text-btn btn btn-control">
           <strong>More</strong>
           <span class="caret"></span>
         </button>
@@ -53,8 +51,8 @@
   </div>
   <!-- sidebar -->
   <div class="inbox col-sm-10">
-   <router-outlet></router-outlet>
-  </div>  
+    <router-outlet></router-outlet>
+  </div>
   <!-- inbox -->
 </div>
 <!-- mail -->
