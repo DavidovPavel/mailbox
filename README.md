@@ -1,1 +1,4 @@
 # mailbox
+
+-about
+-install
