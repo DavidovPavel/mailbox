@@ -1,4 +1,4 @@
 # mailbox
 
--about
--install
+[]about
+[]install
