@@ -43,9 +43,22 @@ export class MailboxComponent implements OnInit, AfterContentInit {
     if (title.trim()) {
       this.api
         .saveBox(title)
-        .subscribe((box) => (this.boxes$ = this.api.getBoxes()));
+        .subscribe(box => (this.boxes$ = this.api.getBoxes()));
     }
   }
 
-  onToolbar() {}
+  onToolbar(name: string) {
+    const p = this.router.url.lastIndexOf('/');
+    switch (name) {
+      case 'backToList':
+        this.router.navigate([this.router.url.slice(0, p)]);
+        break;
+      case 'trash':
+        if (confirm('Вы уверены?')) {
+          this.api.clearMail(this.router.url.slice(p)).subscribe(_ => {
+            this.router.navigate([this.router.url.slice(0, p)]);
+          });
+        }
+    }
+  }
 }

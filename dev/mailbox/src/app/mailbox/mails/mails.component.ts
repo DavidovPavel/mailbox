@@ -29,6 +29,5 @@ export class MailsComponent implements OnInit {
       return this.api.getMails(this.boxId);
     });
 
-    // this.route.params.subscribe(param => console.log(param));
   }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/delay';
+
 export enum Toolbar {
   LIST,
   DETAILS
@@ -18,7 +20,12 @@ export class Button {
   title?: string;
   icon?: string;
   templ: ButtonTemplate;
-  constructor(opt: { name: string; title?: string, icon?: string, tmpl?: ButtonTemplate }) {
+  constructor(opt: {
+    name: string;
+    title?: string;
+    icon?: string;
+    tmpl?: ButtonTemplate;
+  }) {
     this.name = opt.name;
     this.templ = opt.tmpl || 0;
     this.title = opt.title;
@@ -32,7 +39,10 @@ const TOOLBAR_SET = [
     new Button({ name: 'repeat', icon: 'repeat' }),
     new Button({ name: 'more', tmpl: ButtonTemplate.label })
   ],
-  [new Button({ name: 'back', icon: 'arrow-left', title: 'Вернутся' }), new Button({ name: 'trash', icon: 'trash', title: 'Удалить' })]
+  [
+    new Button({ name: 'backToList', icon: 'arrow-left', title: 'Вернутся' }),
+    new Button({ name: 'trash', icon: 'trash', title: 'Удалить' })
+  ]
 ];
 
 @Injectable()
@@ -42,6 +52,8 @@ export class ChannelService {
   constructor() {}
 
   setToolbar(page: Toolbar) {
-    this.toolbar$.next(TOOLBAR_SET[page]);
+    setTimeout(_ => {
+      this.toolbar$.next(TOOLBAR_SET[page]);
+    }, 100);
   }
 }

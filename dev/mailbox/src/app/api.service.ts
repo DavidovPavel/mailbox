@@ -41,4 +41,8 @@ export class ApiService {
       return Observable.of([m]);
     }
   }
+
+  clearMail(id: string) {
+    return this.http.delete(`${API_URL}letters${id}`, { responseType: 'text' });
+  }
 }
