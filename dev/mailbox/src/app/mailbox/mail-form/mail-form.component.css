@@ -1,0 +1,35 @@
+.add-new-mail {
+  width: 450px;
+  height: 455px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px;
+}
+
+.add-new-mail .header {
+  height: 36px;
+  background-color: #404040;
+  color: white;
+  padding: 4px 10px;
+}
+
+.add-new-mail input {
+  border: 0;
+  height: 40px;
+  border-bottom: solid 1px #ccc;
+  width: 100%;
+  padding-left: 10px;
+}
+.add-new-mail textarea {
+  border: 0;
+  width: 100%;
+  height: 286px;
+  padding: 10px;
+}
+
+.add-new-mail .footer {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-top: solid 1px #ccc;
+}

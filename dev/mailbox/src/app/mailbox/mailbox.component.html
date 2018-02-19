@@ -34,10 +34,14 @@
     </div>
     <ul class="list-unstyled inbox-sections">
       <li *ngFor="let box of boxes$ | async" class="box">
-        <a [routerLink]="[ '/app', box._id ]" routerLinkActive="select">{{ box.title }}</a>
+        <a [routerLink]="[ '/box', box._id ]" routerLinkActive="select">{{ box.title }}</a>
         <div class="inbox">
-          <button class="compose btn btn-danger">Compose</button>
-          <ul class="inbox-sections list-unstyled">
+          
+          <button 
+            (click)="showForm()"
+            class="compose btn btn-danger">Написать</button>
+          
+            <ul class="inbox-sections list-unstyled">
             <li class="active">Inbox (100)</li>
             <li>Sent Mail</li>
             <li class="pending">Drafts (7)</li>
@@ -53,6 +57,8 @@
   <div class="inbox col-sm-10">
     <router-outlet></router-outlet>
   </div>
+  
+  
   <!-- inbox -->
 </div>
 <!-- mail -->

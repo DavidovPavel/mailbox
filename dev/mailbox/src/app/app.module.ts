@@ -14,21 +14,27 @@ import { MailComponent } from './mailbox/mails/mail/mail.component';
 import { ApiService } from './api.service';
 import { AuthoriseService } from './authorise.service';
 import { ChannelService } from './channel.service';
+import { MailFormComponent } from './mailbox/mail-form/mail-form.component';
 
 const routes = [
   {
     path: '',
-    redirectTo: 'app',
+    redirectTo: 'box',
     pathMatch: 'full'
   },
   {
-    path: 'app',
+    path: 'box',
     component: MailboxComponent,
     // canActivate: [AuthGuard]
     children: [
       { path: ':boxid', component: MailsComponent },
       { path: ':boxid/:id', component: MailComponent }
     ]
+  },
+  {
+    path: 'add',
+    component: MailFormComponent,
+    outlet: 'add'
   },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -41,7 +47,8 @@ const routes = [
     MailsComponent,
     MailComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MailFormComponent
   ],
   imports: [
     BrowserModule,

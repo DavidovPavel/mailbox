@@ -1,0 +1,20 @@
+<div class="add-new-mail">
+  <div class="header">
+    <span>Новое сообщение</span>
+    <button (click)="hide()">X</button>
+  </div>
+<form [formGroup]="formGroup">
+  <div>
+    <input type="text" placeholder="Кому" formControlName="to">
+  </div>
+  <div>
+    <input type="text" placeholder="Тема" formControlName="subject">
+  </div>
+  <div>
+    <textarea formControlName="body"></textarea>
+  </div>
+  <div class="footer">
+    <button (click)="sendMail()">Отправить</button>
+  </div>
+</form>
+</div>

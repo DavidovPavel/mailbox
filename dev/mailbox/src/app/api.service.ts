@@ -36,10 +36,16 @@ export class ApiService {
   getMail(id: string, boxid?: string): Observable<Mail[]> {
     const m = this.mails.find((_m) => _m._id === id);
     if (!m) {
-      return this.getMails(boxid).map((data) => [data.find((b) => b._id === id)]);
+      return this.getMails(boxid).map((data) => [
+        data.find((b) => b._id === id)
+      ]);
     } else {
       return Observable.of([m]);
     }
+  }
+
+  newMail(mail: Mail): Observable<Mail> {
+    return this.http.post<Mail>(`${API_URL}letters/`, mail);
   }
 
   clearMail(id: string) {

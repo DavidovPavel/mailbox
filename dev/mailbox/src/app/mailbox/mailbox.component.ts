@@ -22,6 +22,9 @@ export class MailboxComponent implements OnInit, AfterContentInit {
   boxes$: Observable<Mailbox[]>;
   toolbar$: Observable<Button[]>;
 
+  boxid;
+  mailid;
+
   constructor(
     private cdRef: ChangeDetectorRef,
     private channel: ChannelService,
@@ -32,6 +35,17 @@ export class MailboxComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.boxes$ = this.api.getBoxes();
+
+    this.route.url.subscribe((a) => {
+      console.log(a);
+    });
+
+    this.route.children.forEach((r) =>
+      r.paramMap.subscribe((paramMap) => {
+        this.boxid = paramMap.get('boxid');
+        this.mailid = paramMap.get('id');
+      })
+    );
   }
 
   ngAfterContentInit(): void {
@@ -43,20 +57,23 @@ export class MailboxComponent implements OnInit, AfterContentInit {
     if (title.trim()) {
       this.api
         .saveBox(title)
-        .subscribe(box => (this.boxes$ = this.api.getBoxes()));
+        .subscribe((box) => (this.boxes$ = this.api.getBoxes()));
     }
   }
 
+  showForm() {
+    this.router.navigate([{ outlets: { add: ['add'] } }]);
+  }
+
   onToolbar(name: string) {
-    const p = this.router.url.lastIndexOf('/');
     switch (name) {
       case 'backToList':
-        this.router.navigate([this.router.url.slice(0, p)]);
+        this.router.navigate(['box', this.boxid]);
         break;
       case 'trash':
         if (confirm('Вы уверены?')) {
-          this.api.clearMail(this.router.url.slice(p)).subscribe(_ => {
-            this.router.navigate([this.router.url.slice(0, p)]);
+          this.api.clearMail(this.mailid).subscribe((_) => {
+            this.router.navigate(['box', this.boxid]);
           });
         }
     }
