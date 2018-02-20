@@ -66,6 +66,8 @@ export class ChannelService {
 
   public search$: Subject<string> = new Subject();
 
+  public oper$: Subject<string> = new Subject();
+
   constructor() {}
 
   // setToolbar(page: Toolbar) {

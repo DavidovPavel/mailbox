@@ -22,7 +22,6 @@ export class MailFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.route.root.children.forEach((r) => {
       r.children.forEach((cr) =>
         cr.paramMap.subscribe((cp) => (this.boxid = cp.get('boxid')))
@@ -44,7 +43,10 @@ export class MailFormComponent implements OnInit {
     if (this.formGroup.valid) {
       const mail = new Mail(this.formGroup.value);
       mail.mailbox = this.boxid;
-      this.api.newMail(mail).subscribe((m) => this.hide());
+      this.api.newMail(mail).subscribe((m) => {
+        this.channel.oper$.next('updateList');
+        this.hide();
+      });
     }
   }
 }

@@ -30,9 +30,10 @@ export class MailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap
       .pipe(
-        tap((params) =>
-          this.channel.path$.next({ boxid: params.get('boxid'), mailid: null })
-        )
+        tap((params) => {
+          this.boxid = params.get('boxid');
+          this.channel.path$.next({ boxid: params.get('boxid'), mailid: null });
+        })
       )
       .switchMap((params) => this.api.getMails(params.get('boxid')))
       .subscribe((m) => {
@@ -57,6 +58,10 @@ export class MailsComponent implements OnInit, OnDestroy {
         this.letters.forEach((m) => (m.checked = false));
       }
       this.channel.selected$.next(this.letters.filter((m) => m.checked));
+    });
+
+    this.channel.oper$.subscribe((name) => {
+      this.api.getMails(this.boxid).subscribe((a) => (this.letters = a));
     });
 
     // this.channel.newmail$.subscribe(

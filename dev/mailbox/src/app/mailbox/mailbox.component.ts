@@ -11,7 +11,11 @@ import { ApiService } from '../api.service';
 import { Mailbox, Mail } from '../models/mailbox';
 
 import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators';
+import 'rxjs/add/observable/from';
+import {forkJoin } from 'rxjs/observable/forkJoin';
+
+
+import { tap, merge } from 'rxjs/operators';
 import { ChannelService, Button, PathInfo, Toolbar } from '../channel.service';
 
 @Component({
@@ -20,7 +24,6 @@ import { ChannelService, Button, PathInfo, Toolbar } from '../channel.service';
   styleUrls: ['./mailbox.component.css']
 })
 export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
-  
   boxes$: Observable<Mailbox[]>;
 
   toolbar: Button[] = [];
@@ -87,7 +90,7 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   allClear() {
     const a = [];
     this.selected.forEach((m) => a.push(this.api.clearMail(m._id)));
-    
+    forkJoin(a).subscribe((_) => this.channel.oper$.next('updateList'));
   }
 
   //#region mailbox
