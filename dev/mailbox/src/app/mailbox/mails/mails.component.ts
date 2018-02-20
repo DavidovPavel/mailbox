@@ -46,7 +46,7 @@ export class MailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.channel.allSelect$.unsubscribe();
+    // this.channel.allSelect$.unsubscribe();
     // this.channel.newmail$.unsubscribe();
   }
 
