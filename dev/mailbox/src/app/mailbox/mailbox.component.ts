@@ -41,7 +41,7 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
     this.boxes$ = this.api.getBoxes();
     this.channel.path$.subscribe((path) => {
       this.path = path;
-
+      this.selected = [];
       setTimeout((_) => {
         this.toolbar = this.channel.getToolbarButton(
           path.mailid ? Toolbar.DETAILS : Toolbar.LIST
