@@ -24,7 +24,7 @@ export class MailComponent implements OnInit {
     this.mails$ = this.route.paramMap
       .pipe(
         tap((param) => {
-          // this.channel.setToolbar(Toolbar.DETAILS);
+          this.channel.selected$.next([]);
           this.channel.path$.next({
             boxid: param.get('boxid'),
             mailid: param.get('id')

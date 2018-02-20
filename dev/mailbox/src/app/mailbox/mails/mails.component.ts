@@ -16,7 +16,9 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./mails.component.css']
 })
 export class MailsComponent implements OnInit, OnDestroy {
-  letters$: Observable<Mail[]>;
+  letters: Mail[] = [];
+  cashe: Mail[] = [];
+  result: Mail[] = [];
   selected: Mail[] = [];
   boxid;
   constructor(
@@ -26,18 +28,35 @@ export class MailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.letters$ = this.route.paramMap
+    this.route.paramMap
       .pipe(
-        tap((params) => {
-          // this.channel.setToolbar(Toolbar.LIST);
-          this.boxid = params.get('boxid');
-          this.channel.path$.next({ boxid: params.get('boxid'), mailid: null });
-        })
+        tap((params) =>
+          this.channel.path$.next({ boxid: params.get('boxid'), mailid: null })
+        )
       )
-      .switchMap((params) => this.api.getMails(params.get('boxid')));
+      .switchMap((params) => this.api.getMails(params.get('boxid')))
+      .subscribe((m) => {
+        this.letters = m;
+        this.cashe = m;
+      });
+
+    this.route.queryParamMap.subscribe((p) => {
+      const term = p.get('terms');
+      this.letters = this.cashe.filter(
+        (m) =>
+          m.to.includes(term) ||
+          m.subject.includes(term) ||
+          m.body.includes(term)
+      );
+    });
 
     this.channel.allSelect$.subscribe((flag) => {
-      console.log(flag);
+      if (flag) {
+        this.letters.forEach((m) => (m.checked = true));
+      } else {
+        this.letters.forEach((m) => (m.checked = false));
+      }
+      this.channel.selected$.next(this.letters.filter((m) => m.checked));
     });
 
     // this.channel.newmail$.subscribe(
@@ -54,11 +73,11 @@ export class MailsComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     if (event.target.checked) {
       if (!this.selected.find((m) => m._id === letter._id)) {
-        this.selected.push(letter);
+        letter.checked = true;
       }
     } else {
-      this.selected = this.selected.filter((m) => m._id !== letter._id);
+      letter.checked = false;
     }
-    this.channel.selected$.next(this.selected);
+    this.channel.selected$.next(this.letters.filter((m) => m.checked));
   }
 }

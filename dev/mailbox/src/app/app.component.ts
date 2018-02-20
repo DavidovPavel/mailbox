@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ChannelService } from './channel.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(
+    private router: Router,
+    private channel: ChannelService) {}
+
   search(value: string) {
-    if (value.trim()) {
-      console.log(value);
-    }
+      this.router.navigate([], {queryParams: { terms: value }});
   }
 }

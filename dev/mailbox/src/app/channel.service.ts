@@ -64,13 +64,15 @@ export class ChannelService {
 
   public newmail$: Subject<Mail> = new Subject();
 
+  public search$: Subject<string> = new Subject();
+
   constructor() {}
 
-  setToolbar(page: Toolbar) {
-    // setTimeout(_ => {
-    this.toolbar$.next(TOOLBAR_SET[page]);
-    // }, 100);
-  }
+  // setToolbar(page: Toolbar) {
+  //   // setTimeout(_ => {
+  //   this.toolbar$.next(TOOLBAR_SET[page]);
+  //   // }, 100);
+  // }
 
   getToolbarButton(page: Toolbar) {
     return TOOLBAR_SET[page];

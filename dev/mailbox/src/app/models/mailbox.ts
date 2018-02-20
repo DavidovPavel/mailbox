@@ -10,6 +10,7 @@ export class Mail {
   body: string;
   to: string;
   received?: Date;
+  checked?: boolean;
 
   constructor(options: any) {
     this._id = options.id;
@@ -17,6 +18,6 @@ export class Mail {
     this.subject = options.subject;
     this.body = options.body;
     this.to = options.to;
-    this.received = new Date;
+    this.received = new Date();
   }
 }

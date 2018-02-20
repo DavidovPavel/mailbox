@@ -87,7 +87,7 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   allClear() {
     const a = [];
     this.selected.forEach((m) => a.push(this.api.clearMail(m._id)));
-    // Observable.of(a).subscribe(_ => this.)
+    
   }
 
   //#region mailbox
