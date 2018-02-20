@@ -49,6 +49,10 @@ export class ApiService {
   }
 
   clearMail(id: string) {
-    return this.http.delete(`${API_URL}letters${id}`, { responseType: 'text' });
+    return this.http.delete(`${API_URL}letters/${id}`, { responseType: 'text' });
+  }
+
+  clearBox(id: string) {
+    return this.http.delete(`${API_URL}mailboxes/${id}`, { responseType: 'text' });
   }
 }

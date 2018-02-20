@@ -2,7 +2,16 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+
 import 'rxjs/add/operator/delay';
+import { Mail } from './models/mailbox';
+
+export interface PathInfo {
+  boxid: string;
+  mailid: string;
+}
 
 export enum Toolbar {
   LIST,
@@ -47,13 +56,23 @@ const TOOLBAR_SET = [
 
 @Injectable()
 export class ChannelService {
+
+  public path$: Subject<PathInfo> = new Subject();
   public toolbar$: Subject<Button[]> = new Subject<Button[]>();
+  public selected$: BehaviorSubject<Mail[]> = new BehaviorSubject<Mail[]>([]);
+  public allSelect$: Subject<boolean> = new Subject();
+
+  public newmail$: Subject<Mail> = new Subject();
 
   constructor() {}
 
   setToolbar(page: Toolbar) {
-    setTimeout(_ => {
-      this.toolbar$.next(TOOLBAR_SET[page]);
-    }, 100);
+    // setTimeout(_ => {
+    this.toolbar$.next(TOOLBAR_SET[page]);
+    // }, 100);
+  }
+
+  getToolbarButton(page: Toolbar) {
+    return TOOLBAR_SET[page];
   }
 }

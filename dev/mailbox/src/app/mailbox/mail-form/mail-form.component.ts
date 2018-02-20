@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
 import { Mail } from '../../models/mailbox';
+import { ChannelService } from '../../channel.service';
 
 @Component({
   selector: 'app-mail-form',
@@ -14,13 +15,13 @@ export class MailFormComponent implements OnInit {
   boxid;
 
   constructor(
+    private channel: ChannelService,
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    console.log(this.route);
 
     this.route.root.children.forEach((r) => {
       r.children.forEach((cr) =>
@@ -43,9 +44,7 @@ export class MailFormComponent implements OnInit {
     if (this.formGroup.valid) {
       const mail = new Mail(this.formGroup.value);
       mail.mailbox = this.boxid;
-      this.api.newMail(mail).subscribe((m) => {
-        this.hide();
-      });
+      this.api.newMail(mail).subscribe((m) => this.hide());
     }
   }
 }

@@ -1,29 +1,33 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   AfterContentInit,
   ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../api.service';
-import { Mailbox } from '../models/mailbox';
+import { Mailbox, Mail } from '../models/mailbox';
 
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
-import { ChannelService, Button } from '../channel.service';
+import { ChannelService, Button, PathInfo, Toolbar } from '../channel.service';
 
 @Component({
   selector: 'app-mailbox',
   templateUrl: './mailbox.component.html',
   styleUrls: ['./mailbox.component.css']
 })
-export class MailboxComponent implements OnInit, AfterContentInit {
+export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
+  
   boxes$: Observable<Mailbox[]>;
-  toolbar$: Observable<Button[]>;
 
-  boxid;
-  mailid;
+  toolbar: Button[] = [];
+
+  path: PathInfo;
+  select = false;
+  selected: Mail[] = [];
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -35,30 +39,31 @@ export class MailboxComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.boxes$ = this.api.getBoxes();
+    this.channel.path$.subscribe((path) => {
+      this.path = path;
 
-    this.route.url.subscribe((a) => {
-      console.log(a);
+      setTimeout((_) => {
+        this.toolbar = this.channel.getToolbarButton(
+          path.mailid ? Toolbar.DETAILS : Toolbar.LIST
+        );
+      }, 100);
     });
 
-    this.route.children.forEach((r) =>
-      r.paramMap.subscribe((paramMap) => {
-        this.boxid = paramMap.get('boxid');
-        this.mailid = paramMap.get('id');
-      })
-    );
+    this.channel.selected$.subscribe((s: Mail[]) => (this.selected = s));
+  }
+
+  ngOnDestroy(): void {
+    this.channel.path$.unsubscribe();
+    this.channel.selected$.unsubscribe();
   }
 
   ngAfterContentInit(): void {
-    this.toolbar$ = this.channel.toolbar$;
-    this.cdRef.detectChanges();
+    // this.toolbar$ = this.channel.toolbar$;
+    // this.cdRef.detectChanges();
   }
 
-  addBox(title: string) {
-    if (title.trim()) {
-      this.api
-        .saveBox(title)
-        .subscribe((box) => (this.boxes$ = this.api.getBoxes()));
-    }
+  switch(e) {
+    this.channel.allSelect$.next(e.target.checked);
   }
 
   showForm() {
@@ -68,14 +73,35 @@ export class MailboxComponent implements OnInit, AfterContentInit {
   onToolbar(name: string) {
     switch (name) {
       case 'backToList':
-        this.router.navigate(['box', this.boxid]);
+        this.router.navigate(['box', this.path.boxid]);
         break;
       case 'trash':
         if (confirm('Вы уверены?')) {
-          this.api.clearMail(this.mailid).subscribe((_) => {
-            this.router.navigate(['box', this.boxid]);
+          this.api.clearMail(this.path.mailid).subscribe((_) => {
+            this.router.navigate(['box', this.path.boxid]);
           });
         }
     }
   }
+
+  allClear() {
+    const a = [];
+    this.selected.forEach((m) => a.push(this.api.clearMail(m._id)));
+    // Observable.of(a).subscribe(_ => this.)
+  }
+
+  //#region mailbox
+  addBox(title: string) {
+    if (title.trim()) {
+      this.api
+        .saveBox(title)
+        .subscribe((box) => (this.boxes$ = this.api.getBoxes()));
+    }
+  }
+
+  clearBox(box) {
+    this.api.clearBox(box._id).subscribe();
+  }
+
+  //#endregion
 }

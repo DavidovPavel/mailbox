@@ -22,7 +22,15 @@ export class MailComponent implements OnInit {
 
   ngOnInit() {
     this.mails$ = this.route.paramMap
-      .pipe(tap((p) => this.channel.setToolbar(Toolbar.DETAILS)))
+      .pipe(
+        tap((param) => {
+          // this.channel.setToolbar(Toolbar.DETAILS);
+          this.channel.path$.next({
+            boxid: param.get('boxid'),
+            mailid: param.get('id')
+          });
+        })
+      )
       .switchMap((param) =>
         this.api.getMail(param.get('id'), param.get('boxid'))
       );

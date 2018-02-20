@@ -1,10 +1,10 @@
 <ul class="list-unstyled">
 
-  <li class="email-item row unread" *ngFor="let letter of letters$ | async" [routerLink]="['/box', boxId, letter._id]">
+  <li class="email-item row unread" *ngFor="let letter of letters$ | async" [routerLink]="['/box', letter.mailbox, letter._id]">
     <div class="people col-sm-3">
       <ul class="mail-icons list-inline">
         <li>
-          <input type="checkbox" class="mail-select">
+          <input type="checkbox" class="mail-select" (click)="check(letter, $event)">
         </li>
         <li>
           <span class="glyphicon glyphicon-star-empty"></span>

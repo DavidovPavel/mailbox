@@ -6,19 +6,20 @@
 
   <div class="controls col-sm-10">
     <ul class="control-list list-inline">
-      <li *ngFor="let btn of toolbar$ | async">
+      <li *ngFor="let btn of toolbar">
         <button *ngIf="btn.templ===0" class="text-btn btn btn-control" (click)="onToolbar(btn.name)" title="{{ btn.title }}">
           <span class="glyphicon glyphicon-{{ btn.icon }}"></span>
         </button>
         <button *ngIf="btn.templ===1" class="btn btn-control">
-          <input type="checkbox" class="mail-select">
+          <input type="checkbox" class="mail-select" (click)="switch($event)" [checked]="!!selected.length">
           <span class="caret"></span>
         </button>
         <button *ngIf="btn.templ===2" class="text-btn btn btn-control">
           <strong>More</strong>
           <span class="caret"></span>
-        </button>
+        </button>        
       </li>
+      <li><button *ngIf="!!selected.length" (click)="allClear()" class="btn btn-control"><span class="glyphicon glyphicon-trash"></span></button></li>
     </ul>
   </div>
   <!-- controls -->
@@ -28,29 +29,24 @@
 <div class="mail row">
   <div class="sidebar col-sm-2">
 
-    <div>
-      <input type="text" name="mailbox" placeholder="new box" #boxname>&nbsp;
-      <button (click)="addBox(boxname.value)">add</button>
-    </div>
-    <ul class="list-unstyled inbox-sections">
-      <li *ngFor="let box of boxes$ | async" class="box">
-        <a [routerLink]="[ '/box', box._id ]" routerLinkActive="select">{{ box.title }}</a>
-        <div class="inbox">
-          
+        <div class="inbox">          
           <button 
             (click)="showForm()"
             class="compose btn btn-danger">Написать</button>
           
             <ul class="inbox-sections list-unstyled">
-            <li class="active">Inbox (100)</li>
+                <li *ngFor="let box of boxes$ | async">
+                  <!-- <button (click)="clearBox(box)">X</button> -->
+                  <a [routerLink]="[ '/box', box._id ]" routerLinkActive="active">{{ box.title }}</a>
+                </li>
+            <!-- <li class="active">Inbox (100)</li>
             <li>Sent Mail</li>
             <li class="pending">Drafts (7)</li>
             <li>All Mail</li>
-            <li class="pending">Spam (1)</li>
+            <li class="pending">Spam (1)</li> -->
           </ul>
         </div>
-      </li>
-    </ul>
+     
 
   </div>
   <!-- sidebar -->

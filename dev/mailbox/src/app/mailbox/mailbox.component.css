@@ -1,19 +1,9 @@
-.box {
-  cursor: pointer;
-}
-.box > a {
-  font-size: 18px;
-}
-.box > a.select {
-  font-weight: bold;
+
+.inbox-sections a {
+  color: #333333;
 }
 
-
-.box .inbox {
-  display: none;
-  padding: 4px 8px 12px;
+.inbox-sections a.active {
+  color: #d14836;
 }
 
-.box > a.select ~ .inbox {
-  display: block;
-}
