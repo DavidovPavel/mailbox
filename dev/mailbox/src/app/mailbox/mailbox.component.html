@@ -1,7 +1,12 @@
 <div class="control-bar row">
-  <div class="menu col-sm-2">Gmail
-    <span class="caret"></span>
+
+  <div class="menu col-sm-2" style="cursor:pointer;" (click)="showMenu = !showMenu">Gmail<span class="caret"></span></div>
+  <div #dropdown [ngClass]="{dropdown:true, show: showMenu }">
+      <a>Gmail</a> 
+      <a routerLink="/users">Адресная книга</a>
+      <a routerLink="/tasks">Задачи</a>
   </div>
+  
   <!-- menu -->
 
   <div class="controls col-sm-10">

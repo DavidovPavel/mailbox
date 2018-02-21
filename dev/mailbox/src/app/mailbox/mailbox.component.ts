@@ -12,8 +12,7 @@ import { Mailbox, Mail } from '../models/mailbox';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import {forkJoin } from 'rxjs/observable/forkJoin';
-
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 import { tap, merge } from 'rxjs/operators';
 import { ChannelService, Button, PathInfo, Toolbar } from '../channel.service';
@@ -31,6 +30,8 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   path: PathInfo;
   select = false;
   selected: Mail[] = [];
+
+  showMenu = false;
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -56,8 +57,8 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.channel.path$.unsubscribe();
-    this.channel.selected$.unsubscribe();
+    // this.channel.path$.unsubscribe();
+    // this.channel.selected$.unsubscribe();
   }
 
   ngAfterContentInit(): void {
@@ -88,9 +89,11 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   allClear() {
-    const a = [];
-    this.selected.forEach((m) => a.push(this.api.clearMail(m._id)));
-    forkJoin(a).subscribe((_) => this.channel.oper$.next('updateList'));
+    if (confirm('Все будет удалено!')) {
+      const a = [];
+      this.selected.forEach((m) => a.push(this.api.clearMail(m._id)));
+      forkJoin(a).subscribe((_) => this.channel.oper$.next('updateList'));
+    }
   }
 
   //#region mailbox

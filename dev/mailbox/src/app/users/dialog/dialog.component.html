@@ -1,0 +1,45 @@
+<h3 mat-dialog-title>
+    {{ data._id? 'Изменить': 'Добавить' }} пользователя
+</h3>
+
+<mat-dialog-content>
+    <form [formGroup]="userFormGroup" class="user-form">
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Полное имя" formControlName="fullName" [value]="data.fullName">
+            <mat-error *ngIf="userFormGroup.get('fullName').status==='INVALID'">Полное имя пустое</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="E-mail" formControlName="email" [value]="data.email">
+            <mat-error *ngIf="userFormGroup.get('email').status==='INVALID'">E-mail пустой или не верный</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Аватар (ссылка)" formControlName="avatarUrl" [value]="data.avatarUrl">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="picker" placeholder="Дата рождения" formControlName="birthdate" [value]="data.birthdate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-select placeholder="Пол" formControlName="gender" [(ngModel)]="data.gender">
+                <mat-option value="M">Мужской</mat-option>
+                <mat-option value="F">Женский</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <textarea matInput placeholder="Адрес" formControlName="address">{{data.address}}</textarea>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="userFormGroup" [disabled]="!userFormGroup.valid">{{ data._id? 'Изменить': 'Добавить' }}</button>
+    <button mat-button mat-dialog-close>Отменить</button>
+</mat-dialog-actions>

@@ -7,3 +7,19 @@
   color: #d14836;
 }
 
+.dropdown {
+  position: absolute;
+  padding: 2px;
+  border: solid 1px #ccc;
+  background-color: white;
+  margin-top: 44px;
+  left: 30px;
+  z-index: 1;
+  display: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px;
+  min-width: 140px;
+}
+.dropdown.show {display: block;}
+.dropdown a {display: block; padding: 4px 12px;}
+.dropdown a:hover {background-color: #eee;text-decoration: none;}
+

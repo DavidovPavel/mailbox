@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,11 @@ import { ApiService } from './api.service';
 import { AuthoriseService } from './authorise.service';
 import { ChannelService } from './channel.service';
 import { MailFormComponent } from './mailbox/mail-form/mail-form.component';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './users/user/user.component';
+import { MaterialModule } from './material.module';
+import { DialogComponent } from './users/dialog/dialog.component';
+import { MatNativeDateModule } from '@angular/material';
 
 const routes = [
   {
@@ -31,6 +36,7 @@ const routes = [
       { path: ':boxid/:id', component: MailComponent }
     ]
   },
+  { path: 'users', component: UsersComponent },
   {
     path: 'add',
     component: MailFormComponent,
@@ -48,15 +54,23 @@ const routes = [
     MailComponent,
     LoginComponent,
     PageNotFoundComponent,
-    MailFormComponent
+    MailFormComponent,
+    UsersComponent,
+    UserComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MaterialModule,
+    MatNativeDateModule
   ],
-  providers: [ApiService, AuthoriseService, ChannelService],
+  entryComponents: [
+    DialogComponent
+  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, ApiService, AuthoriseService, ChannelService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

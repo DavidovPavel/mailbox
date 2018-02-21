@@ -1,0 +1,17 @@
+<div class="header">
+</div>
+
+<div class="container">
+  <div class="left">
+
+  </div>
+  <div class="content">
+    <ul class="list-unstyled">
+      <app-user *ngFor="let user of users$ | async" [user]="user" 
+      (editUserEve)="editUser($event)"
+      (clearUserEve)="clearUser($event)"></app-user>
+    </ul>
+  </div>
+</div>
+
+<button mat-fab class="add-user-button" (click)="showAdd()">+</button>
