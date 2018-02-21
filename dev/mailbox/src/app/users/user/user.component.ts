@@ -5,8 +5,11 @@ import { User } from '../../models/user';
   selector: 'app-user',
   template: `
   <li class="email-item row unread">
+    <div class="col-sm-1" style="text-align:center">
+    <img *ngIf="user.avatarUrl" src="{{user.avatarUrl}}" alt="" style="border-radius: 50%;width:32px;height:32px;">
+    </div>
     <div class="people col-sm-3">{{ user.fullName }} </div>
-    <div class="message col-sm-7">{{ user.email }}</div>
+    <div class="message col-sm-6">{{ user.email }}</div>
     <div class="col-sm-2">
       <button mat-icon-button color="primary" (click)="editUser()"><mat-icon>edit</mat-icon></button>
       <button mat-icon-button color="primary" (click)="clearUser()"><mat-icon>delete</mat-icon></button></div> 
