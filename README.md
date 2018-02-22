@@ -6,7 +6,7 @@ Demo https://vigorous-minsky-7ab739.netlify.com
 
 Авторизация: admin - admin
 
-Вопрос при попытке добавить динамический набор кнопок в тулбар - 
+<b>Вопрос:</> - при попытке добавить динамический набор кнопок в тулбар - 
 Oшибка:
 ```
 ExpressionChangedAfterItHasBeenCheckedError:
