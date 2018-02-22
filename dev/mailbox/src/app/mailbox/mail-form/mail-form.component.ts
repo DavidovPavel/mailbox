@@ -32,13 +32,14 @@ export class MailFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.pathFromRoot.forEach(r => {
-      r.paramMap.subscribe(p => {
-        console.log(p);
-      });
+
+    this.route.root.children.forEach((r) => {
+      r.children.forEach((cr) =>
+        cr.paramMap.subscribe((cp) => (this.boxid = cp.get('boxid')))
+      );
     });
 
-    this.channel.path$.subscribe(patch => (this.boxid = patch.boxid));
+    // this.channel.path$.subscribe(patch => (this.boxid = patch.boxid));
 
     this.formGroup = new FormGroup({
       to: new FormControl('', [Validators.required, Validators.email]),
