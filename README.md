@@ -7,6 +7,7 @@ Demo https://vigorous-minsky-7ab739.netlify.com
 Авторизация: admin - admin
 
 <b>Вопрос:</b> - При попытке добавить динамический набор кнопок в тулбар
+ - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63]
 
 Oшибка:
 ```
