@@ -6,13 +6,12 @@ Demo https://vigorous-minsky-7ab739.netlify.com
 
 Авторизация: admin - admin
 
-<<<<<<< HEAD
-Вопрос при попытке добавить динамический набор кнопок в тулбар
-=======
+
+<hr>
+
 <b>Вопрос:</b> - При попытке добавить динамический набор кнопок в тулбар
  - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63]
 
->>>>>>> 7b94ab247cb1c798953f6cb89c016c5cb79b4ae0
 Oшибка:
 ```
 ExpressionChangedAfterItHasBeenCheckedError:
