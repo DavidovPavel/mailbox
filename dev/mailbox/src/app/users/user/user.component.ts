@@ -12,7 +12,7 @@ import { User } from '../../models/user';
     <div class="message col-sm-6">{{ user.email }}</div>
     <div class="col-sm-2">
       <button mat-icon-button color="primary" (click)="editUser()"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button color="primary" (click)="clearUser()"><mat-icon>delete</mat-icon></button></div> 
+      <button mat-icon-button color="primary" (click)="clearUser()"><mat-icon>delete</mat-icon></button></div>
 </li>
   `,
 })

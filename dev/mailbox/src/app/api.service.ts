@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { User } from './models/user';
+import { of } from 'rxjs/observable/of';
+import { tap } from 'rxjs/operators';
 
 const API_URL = 'https://test-api.javascript.ru/v1/pdavydov/';
 
@@ -30,6 +32,11 @@ export class ApiService {
   updateUser(id, user) {
     return this.http.patch(`${API_URL}users/${id}`, user);
   }
+
+  searchUsers(term: string) {
+    return !term.trim() ? of([]) : this.getUsers().map(users => users.filter(u => u.email.includes(term)));
+  }
+
   //#endregion
 
   //#region mailbox
@@ -69,7 +76,20 @@ export class ApiService {
   }
 
   newMail(mail: Mail): Observable<Mail> {
-    return this.http.post<Mail>(`${API_URL}letters/`, mail);
+    const users$ = this.searchUsers(mail.to),
+      add$ = this.addUser(new User({ fullName: mail.to, email: mail.to }));
+
+    return this.http.post<Mail>(`${API_URL}letters/`, mail).pipe(
+      tap(m => this.checkMail(m))
+    );
+  }
+
+  checkMail(mail: Mail) {
+    this.searchUsers(mail.to).subscribe(users => {
+      if (!users.length) {
+        this.addUser(new User({ fullName: mail.to, email: mail.to })).subscribe();
+      }
+    });
   }
 
   clearMail(id: string) {
