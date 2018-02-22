@@ -36,9 +36,7 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnInit() {
     this.boxes$ = this.api.getBoxes().pipe(
-      tap(bs => {
-        this.router.navigate(['box', bs[0]._id]);
-      })
+      tap(bs => this.router.navigate(['box', bs[0]._id]))
     );
 
     this.channel.path$.subscribe(path => {
@@ -60,7 +58,7 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
        * ```
        *
        */
-     setTimeout(_ => (this.toolbar = this.channel.getToolbarButton(path.mailid ? Toolbar.DETAILS : Toolbar.LIST)));
+      setTimeout(_ => (this.toolbar = this.channel.getToolbarButton(path.mailid ? Toolbar.DETAILS : Toolbar.LIST)));
     });
 
     this.channel.selected$.subscribe((s: Mail[]) => (this.selected = s));
@@ -78,7 +76,6 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
     // this.channel.path$.unsubscribe();
     // this.channel.selected$.unsubscribe();
   }
-
 
   switch(e) {
     this.channel.allSelect$.next(e.target.checked);

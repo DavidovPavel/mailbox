@@ -12,7 +12,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Mail } from '../../models/mailbox';
 import { User } from '../../models/user';
 
-
 @Component({
   selector: 'app-mail-form',
   templateUrl: './mail-form.component.html',
@@ -33,8 +32,13 @@ export class MailFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.route.pathFromRoot.forEach(r => {
+      r.paramMap.subscribe(p => {
+        console.log(p);
+      });
+    });
 
-    this.channel.path$.subscribe(patch => this.boxid = patch.boxid);
+    this.channel.path$.subscribe(patch => (this.boxid = patch.boxid));
 
     this.formGroup = new FormGroup({
       to: new FormControl('', [Validators.required, Validators.email]),
