@@ -17,7 +17,6 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 
 При чем гугл говорит о том что эта ошибка возникает только в Dev режиме - https://github.com/angular/angular/issues/6005#issuecomment-165911194
 
-Еще ссылка - https://github.com/angular/angular/issues/17572
 
 ```
 In short, after every round of change detection, 
@@ -25,6 +24,8 @@ dev mode immediately performs a second round to verify that no bindings have cha
 as this would indicate that changes are being caused by change detection itself
 ```
 Нарушается односториний поток данных? Решается через обертку в setTimeout - на сколько это хорошо?
+
+Еще ссылка - https://github.com/angular/angular/issues/17572
 
 ```
 Why putting the SetTimout doesn't raise the error anymore.
