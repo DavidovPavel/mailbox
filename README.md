@@ -8,10 +8,13 @@ Demo https://vigorous-minsky-7ab739.netlify.com
 
 Вопрос при попытке добавить динамический набор кнопок в тулбар - 
 Oшибка:
-- ExpressionChangedAfterItHasBeenCheckedError:
-- Expression has changed after it was checked.
-- Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Object],[object Object]'.
-- При чем гугл говорит о том что эта ошибка возникает только в Dev режиме - https://github.com/angular/angular/issues/6005#issuecomment-165911194
+```
+ExpressionChangedAfterItHasBeenCheckedError:
+Expression has changed after it was checked.
+Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Object],[object Object]'.
+```
+
+При чем гугл говорит о том что эта ошибка возникает только в Dev режиме - https://github.com/angular/angular/issues/6005#issuecomment-165911194
 
 Еще ссылка - https://github.com/angular/angular/issues/17572
 
