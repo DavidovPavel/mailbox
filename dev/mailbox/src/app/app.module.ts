@@ -20,6 +20,7 @@ import { UserComponent } from './users/user/user.component';
 import { MaterialModule } from './material.module';
 import { DialogComponent } from './users/dialog/dialog.component';
 import { MatNativeDateModule } from '@angular/material';
+import { AuthGuard } from './auth.guard';
 
 const routes = [
   {
@@ -30,13 +31,13 @@ const routes = [
   {
     path: 'box',
     component: MailboxComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
     children: [
       { path: ':boxid', component: MailsComponent },
       { path: ':boxid/:id', component: MailComponent }
     ]
   },
-  { path: 'users', component: UsersComponent },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   {
     path: 'add',
     component: MailFormComponent,
@@ -70,7 +71,7 @@ const routes = [
   entryComponents: [
     DialogComponent
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, ApiService, AuthoriseService, ChannelService],
+  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, ApiService, AuthoriseService, ChannelService, AuthGuard],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
