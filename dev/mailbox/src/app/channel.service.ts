@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import 'rxjs/add/operator/delay';
 import { Mail } from './models/mailbox';
 
 export interface PathInfo {
@@ -23,6 +21,9 @@ enum ButtonTemplate {
   label
 }
 
+/** 
+ * Кнопка для тулбара
+*/
 export class Button {
   name: string;
   title?: string;
