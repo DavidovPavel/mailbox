@@ -6,11 +6,23 @@ Demo https://vigorous-minsky-7ab739.netlify.com
 
 Авторизация: admin - admin
 
+Запуск:
+```
+cd ./dev/mailbox
+ng serve
+```
+
+Build
+```
+$ cd ./dev/mailbox
+$ ng build --prod -op=../../public
+```
 
 <hr>
 
-<b>Вопрос:</b> - При попытке добавить динамический набор кнопок в тулбар
+<b>Вопрос №1:</b> - При попытке добавить динамический набор кнопок в тулбар
  - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63]
+ - проблема не правильной архитектуры
 
 Oшибка:
 ```
@@ -34,4 +46,30 @@ as this would indicate that changes are being caused by change detection itself
 ```
 Why putting the SetTimout doesn't raise the error anymore.
  - You change field asynchronously, which respects one-way data flow.
+```
+
+
+<b>Вопрос №2:</b> - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
+- не верно спроектирован тулбар
+
+Ошибка: `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
+
+<b>Вопрос №3</b> - Как "дебажить" по следующей инфо в консоле:
+
+```
+DebugContext_ {view: {…}, nodeIndex: 32, nodeDef: {…}, elDef: {…}, elView: {…}}
+component:(...)
+componentRenderElement:(...)
+context:(...)
+elDef:{nodeIndex: 31, parent: {…}, renderParent: {…}, bindingIndex: 10, outputIndex: 3, …}
+elOrCompView:(...)
+elView:{def: {…}, parent: {…}, viewContainerParent: null, parentNodeDef: {…}, context: MailboxComponent, …}
+injector:(...)
+nodeDef:{nodeIndex: 32, parent: {…}, renderParent: {…}, bindingIndex: 10, outputIndex: 3, …}
+nodeIndex:32
+providerTokens:(...)
+references:(...)
+renderNode:(...)
+view:{def: {…}, parent: {…}, viewContainerParent: null, parentNodeDef: {…}, context: MailboxComponent, …}
+__proto__:Object
 ```

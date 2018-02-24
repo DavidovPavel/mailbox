@@ -41,7 +41,6 @@
           
             <ul class="inbox-sections list-unstyled">
                 <li *ngFor="let box of boxes$ | async">
-                  <!-- <button (click)="clearBox(box)">X</button> -->
                   <a [routerLink]="[ '/box', box._id ]" routerLinkActive="active">{{ box.title }}</a>
                 </li>
             <!-- <li class="active">Inbox (100)</li>

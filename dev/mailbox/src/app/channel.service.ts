@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-
 import 'rxjs/add/operator/delay';
 import { Mail } from './models/mailbox';
 
@@ -54,28 +53,44 @@ const TOOLBAR_SET = [
   ]
 ];
 
-@Injectable()
+/**
+ * Сервис для взаимодействия между компонентами
+ */
 export class ChannelService {
-
+  /**
+   * Состояние приложения, содержит текущее значение mailbox_id, letter_id
+   * @description PathInfo {boxid: string; mailid: string;}
+   */
   public path$: Subject<PathInfo> = new Subject();
-  public toolbar$: Subject<Button[]> = new Subject<Button[]>();
+
+  // public toolbar$: Subject<Button[]> = new Subject<Button[]>();
+
+  /**
+   * Поток изменения массива выбраных писем
+   */
   public selected$: BehaviorSubject<Mail[]> = new BehaviorSubject<Mail[]>([]);
+
+  /**
+   * Изменение сосотяния чекбокса "Выбрать все"
+   */
   public allSelect$: Subject<boolean> = new Subject();
 
+  /**
+   * Пришло новое письмо
+   */
   public newmail$: Subject<Mail> = new Subject();
 
-  public search$: Subject<string> = new Subject();
+  // public search$: Subject<string> = new Subject();
 
+  /**
+   * Update list
+   */
   public oper$: Subject<string> = new Subject();
 
-  constructor() {}
-
-  // setToolbar(page: Toolbar) {
-  //   // setTimeout(_ => {
-  //   this.toolbar$.next(TOOLBAR_SET[page]);
-  //   // }, 100);
-  // }
-
+  /**
+   * Набор кнопок для тулбара для разных компонентов
+   * @param page
+   */
   getToolbarButton(page: Toolbar) {
     return TOOLBAR_SET[page];
   }

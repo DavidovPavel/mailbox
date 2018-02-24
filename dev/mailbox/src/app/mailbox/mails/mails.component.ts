@@ -18,8 +18,6 @@ import { tap } from 'rxjs/operators';
 export class MailsComponent implements OnInit, OnDestroy {
   letters: Mail[] = [];
   cashe: Mail[] = [];
-  result: Mail[] = [];
-  selected: Mail[] = [];
   boxid;
   constructor(
     private channel: ChannelService,
@@ -30,43 +28,44 @@ export class MailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap
       .pipe(
-        tap((params) => {
+        tap(params => {
           this.boxid = params.get('boxid');
           this.channel.path$.next({ boxid: params.get('boxid'), mailid: null });
         })
       )
-      .switchMap((params) => this.api.getMails(params.get('boxid')))
-      .subscribe((m) => {
+      .switchMap(params => this.api.getMails(params.get('boxid')))
+      .subscribe(m => {
         this.letters = m;
         this.cashe = m;
       });
 
-    this.route.queryParamMap.subscribe((p) => {
+    /**
+     * Поиск писем
+     */
+    this.route.queryParamMap.subscribe(p => {
       const term = p.get('terms');
       this.letters = this.cashe.filter(
-        (m) =>
+        m =>
           m.to.includes(term) ||
           m.subject.includes(term) ||
           m.body.includes(term)
       );
     });
 
-    this.channel.allSelect$.subscribe((flag) => {
-      if (flag) {
-        this.letters.forEach((m) => (m.checked = true));
-      } else {
-        this.letters.forEach((m) => (m.checked = false));
-      }
-      this.channel.selected$.next(this.letters.filter((m) => m.checked));
+    /**
+     * Множественный выбор из тулбара
+     */
+    this.channel.allSelect$.subscribe(flag => {
+      this.letters.forEach(m => (m.checked = flag));
+      this.channel.selected$.next(this.letters.filter(m => m.checked));
     });
 
-    this.channel.oper$.subscribe((name) => {
-      this.api.getMails(this.boxid).subscribe((a) => (this.letters = a));
+    /**
+     * Обновляем список писем
+     */
+    this.channel.oper$.subscribe(name => {
+      this.api.getMails(this.boxid).subscribe(a => (this.letters = a));
     });
-
-    // this.channel.newmail$.subscribe(
-    //   (m: Mail) => (this.letters$ = this.api.getMails(this.boxid))
-    // );
   }
 
   ngOnDestroy(): void {
@@ -74,15 +73,14 @@ export class MailsComponent implements OnInit, OnDestroy {
     // this.channel.newmail$.unsubscribe();
   }
 
+  /**
+   * Выбор письма из списка по чекбоксу
+   * @param letter
+   * @param event
+   */
   check(letter: Mail, event) {
     event.stopPropagation();
-    if (event.target.checked) {
-      if (!this.selected.find((m) => m._id === letter._id)) {
-        letter.checked = true;
-      }
-    } else {
-      letter.checked = false;
-    }
-    this.channel.selected$.next(this.letters.filter((m) => m.checked));
+    letter.checked = event.target.checked;
+    this.channel.selected$.next(this.letters.filter(m => m.checked));
   }
 }

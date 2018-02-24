@@ -21,7 +21,14 @@ export class MailFormComponent implements OnInit {
   formGroup: FormGroup;
   boxid;
 
+  /**
+   * Поток для списка найденых пользователей
+   */
   users$: Observable<User[]>;
+
+  /**
+   * 
+   */
   searchTerm$ = new Subject<string>();
 
   constructor(
@@ -38,8 +45,6 @@ export class MailFormComponent implements OnInit {
         cr.paramMap.subscribe((cp) => (this.boxid = cp.get('boxid')))
       );
     });
-
-    // this.channel.path$.subscribe(patch => (this.boxid = patch.boxid));
 
     this.formGroup = new FormGroup({
       to: new FormControl('', [Validators.required, Validators.email]),
@@ -61,6 +66,7 @@ export class MailFormComponent implements OnInit {
 
   search(e) {
     if (e.code === 'ArrowDown') {
+      // TODO: выбор элемента
     } else {
       this.searchTerm$.next(e.target.value);
     }
