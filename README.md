@@ -43,7 +43,7 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 >Why putting the SetTimout doesn't raise the error anymore.
 >You change field asynchronously, which respects one-way data flow.
 
-======
+#
 
 **Вопрос №2: (только в dev-режиме)** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо, 
 возможно следствие Ошибки №1
@@ -52,7 +52,7 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. 
 Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
 
-=====
+#
 
 **Вопрос №3** - Отладка приложения - инфо в консоле:
 
@@ -74,7 +74,7 @@ view:{def: {…}, parent: {…}, viewContainerParent: null, parentNodeDef: {…}
 __proto__:Object
 ```
 
-=====
+#
 
 ***Замечание по рутингу:*** - Для того чтобы получить данные по роутингу (:mailbox_id, :letter_id) 
 ../app/mailbox/mail-form/mail-form.component.ts [ln:36]
