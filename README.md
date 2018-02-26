@@ -86,3 +86,21 @@ this.route.root.children.forEach((r) => {
 ```
 *Вообще работа с рутингом не совсем прозрачна и очевидна, пришлось немного повозиться, что бы разобраться как получить данные, если компоненнт не принадлежит маршруту*
 
+```js
+...
+{
+    path: 'box',
+    component: MailboxComponent,
+    children: [
+      { path: ':boxid', component: MailsComponent },
+      { path: ':boxid/:id', component: MailComponent }
+    ]
+  },
+  {
+    path: 'add',
+    component: MailFormComponent,
+    outlet: 'add'
+  },
+...
+```
+
