@@ -49,8 +49,10 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 возможно следствие Ошибки №1
 
 Ошибка: 
-`ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. 
-Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
+```
+ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. 
+Previous value: 'ngIf: true'. Current value: 'ngIf: false'.
+```
 
 #
 
