@@ -20,9 +20,9 @@ $ ng build --prod -op=../../public
 
 <hr>
 
-<b>Вопрос №1:</b> - При попытке добавить динамический набор кнопок в тулбар
+**Вопрос №1:** - При попытке добавить динамический набор кнопок в тулбар
  - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63]
- - проблема не правильной архитектуры
+    проблема не правильной архитектуры?
 
 Oшибка:
 ```
@@ -49,12 +49,12 @@ Why putting the SetTimout doesn't raise the error anymore.
 ```
 
 
-<b>Вопрос №2:</b> - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
-- не верно спроектирован тулбар
+**Вопрос №2:** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
+    не верно спроектирован тулбар?
 
 Ошибка: `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
 
-<b>Вопрос №3</b> - Как "дебажить" по следующей инфо в консоле:
+**Вопрос №3** - Отладка приложения - инфо в консоле:
 
 ```
 DebugContext_ {view: {…}, nodeIndex: 32, nodeDef: {…}, elDef: {…}, elView: {…}}
