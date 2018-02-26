@@ -21,7 +21,7 @@ $ ng build --prod -op=../../public
 <hr>
 
 **Вопрос №1:** - При попытке добавить динамический набор кнопок в тулбар
- - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63] - ***проблема неправильной архитектуры?***
+ - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 48] - ***проблема неправильной архитектуры?***
 
 Oшибка:
 ```
