@@ -21,8 +21,7 @@ $ ng build --prod -op=../../public
 <hr>
 
 **Вопрос №1:** - При попытке добавить динамический набор кнопок в тулбар
- - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63]
-    проблема не правильной архитектуры?
+ - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63] - *проблема не правильной архитектуры?*
 
 Oшибка:
 ```
@@ -33,26 +32,23 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 
 При чем гугл говорит о том что эта ошибка возникает только в Dev режиме - https://github.com/angular/angular/issues/6005#issuecomment-165911194
 
+>In short, after every round of change detection, 
+>dev mode immediately performs a second round to verify that no bindings have changed since the end of the first, 
+>as this would indicate that changes are being caused by change detection itself
 
-```
-In short, after every round of change detection, 
-dev mode immediately performs a second round to verify that no bindings have changed since the end of the first, 
-as this would indicate that changes are being caused by change detection itself
-```
-Нарушается односториний поток данных? Решается через обертку в setTimeout - на сколько это хорошо?
+***Нарушается односториний поток данных? Решается через обертку в setTimeout - на сколько это хорошо?***
 
 Еще ссылка - https://github.com/angular/angular/issues/17572
 
-```
-Why putting the SetTimout doesn't raise the error anymore.
- - You change field asynchronously, which respects one-way data flow.
-```
+>Why putting the SetTimout doesn't raise the error anymore.
+>- You change field asynchronously, which respects one-way data flow.
 
 
 **Вопрос №2:** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
     не верно спроектирован тулбар?
 
 Ошибка: `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
+
 
 **Вопрос №3** - Отладка приложения - инфо в консоле:
 
