@@ -43,14 +43,14 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 >Why putting the SetTimout doesn't raise the error anymore.
 >You change field asynchronously, which respects one-way data flow.
 
----
+***
 
 **Вопрос №2:** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
     не верно спроектирован тулбар?
 
 Ошибка: `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
 
----
+***
 
 **Вопрос №3** - Отладка приложения - инфо в консоле:
 
