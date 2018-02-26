@@ -21,7 +21,7 @@ $ ng build --prod -op=../../public
 <hr>
 
 **Вопрос №1:** - При попытке добавить динамический набор кнопок в тулбар
- - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63] - *проблема не правильной архитектуры?*
+ - /dev/mailbox/src/app/mailbox/mailbox.component.ts [ln: 63] - ***проблема неправильной архитектуры?***
 
 Oшибка:
 ```
@@ -45,12 +45,12 @@ Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Ob
 
 
 
-**Вопрос №2:** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо
-    не верно спроектирован тулбар?
+**Вопрос №2: (только в dev-режиме)** - Реакция тулбара, если выбрать письмо в списке и перейти в письмо, 
+возможно следствие Ошибки №1
 
-Ошибка: `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. 
+Ошибка: 
+`ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. 
 Previous value: 'ngIf: true'. Current value: 'ngIf: false'.`
-
 
 
 **Вопрос №3** - Отладка приложения - инфо в консоле:
@@ -72,3 +72,17 @@ renderNode:(...)
 view:{def: {…}, parent: {…}, viewContainerParent: null, parentNodeDef: {…}, context: MailboxComponent, …}
 __proto__:Object
 ```
+
+***Замечание по рутингу:*** - Для того чтобы получить данные по роутингу (:mailbox_id, :letter_id) 
+../app/mailbox/mail-form/mail-form.component.ts [ln:36]
+пришлось сделать такое:
+
+``` js
+this.route.root.children.forEach((r) => {
+      r.children.forEach((cr) =>
+        cr.paramMap.subscribe((cp) => (this.boxid = cp.get('boxid')))
+      );
+    });
+```
+*Вообще работа с рутингом не совсем прозрачна и очевидна, пришлось немного повозиться, что бы разобраться как получить данные, если компоненнт не принадлежит маршруту*
+
