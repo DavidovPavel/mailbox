@@ -37,6 +37,10 @@ export class MailboxComponent implements OnInit, AfterContentInit, OnDestroy {
   ngOnInit() {
     this.boxes$ = this.api.getBoxes().pipe(tap(bs => this.router.navigate(['box', bs[0]._id])));
 
+    /**
+     * Изменение данных при изменении рутинга...
+     * Подписка на события роута не привели к желаемым результатм: не удается получить boxid, id
+     */
     this.channel.path$.subscribe(path => {
       this.path = path;
 
